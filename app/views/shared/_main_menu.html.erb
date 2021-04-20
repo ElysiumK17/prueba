@@ -20,10 +20,10 @@
         <%= link_to "Autores", authors_url, class: "nav-link" %>
       </li>
     </ul>
-    <!--  -->
-    <form class="d-flex">
-      <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
-      <button class="btn btn-outline-light" type="submit">Buscar</button>
-    </form>
+    <!-- Formulario de Búsqueda -->
+    <%= form_tag(recipes_path, method: :get) do %>
+      <%= text_field_tag(:search, params[:search]) %>
+      <%= submit_tag("Buscar") %>
+    <% end %>
   </div>
 </div>

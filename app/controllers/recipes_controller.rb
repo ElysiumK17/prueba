@@ -3,10 +3,15 @@ class RecipesController < ApplicationController
 
   # GET /recipes or /recipes.json
   def index
+    # EN TODOS LOS CASOS:
     # Agrego .order('submit_date DESC') para que devuelva los objetos ordenados con los más nuevos primero
-    if params[:category]
+
+    if params[:category] # Si viene el parámetro de category_id, devuelvo las recetas de la categoría
       @recipes = Recipe.where(category_id: params[:category]).order('submit_date DESC')
-    else
+    elsif params[:search] # Si viene el parámetro de search, lo utilizo para realizar la búsqueda
+      # Pongo los el parámetro entre % % para poder buscar con comodines, en caso que no venga el nombre completo.
+      @recipes = Recipe.where("name LIKE ?", "%#{params[:search]}%").order('submit_date DESC')
+    else # Si no llega ningún parámetro en la url, entonces devuelve el listado completo de recetas.
       @recipes = Recipe.all.order('submit_date DESC')
     end
   end
