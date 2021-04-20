@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<h1 style="font-size: 4em;"><%= @author.first_name %> <strong><%= @author.last_name %></strong></h1>
+
+<div class="alert alert-info">
+  <p>
+    <strong>Nacimiento: </strong><%= @author.birthdate %><br>
+    <strong>Nacionalidad: </strong><%= @author.nationality %><br>
+    <strong>Especialidad:</strong> <%= @author.category.name %>
+  </p>
+</div>
+
+
+<hr>
+
+<h2>
+  <strong>Recetas del Autor:</strong>
+</h2>
+
+<% @author.recipes.all.each do |recipe|  %>
+  <div class="card" style="width: 18rem">
+    <!-- <img src="..." class="" alt="...">  CODIGO DE EJEMPLO (Card - Bootstrap) -->
+    <!-- Lo reemplazo con un tag de Rails, manteniendo el nombre de la clase -->
+    <%= image_tag recipe.image_url, class: "card-img-top"  %>
+    <div class="card-body">
+      <h5 class="card-title"> <%= recipe.name %> </h5>
+      <p class="card-text"> <%= recipe.description %> </p>
+      <%= link_to "Ver Receta", recipe, class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
+
+<%= link_to 'Edit', edit_author_path(@author), class: 'btn btn-sm btn-secondary' %> &nbsp;
+<%= link_to 'Back', authors_path, class: 'btn btn-sm btn-primary' %>
